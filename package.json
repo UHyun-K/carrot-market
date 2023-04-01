@@ -9,7 +9,9 @@
   },
   "dependencies": {
     "@prisma/client": "^4.12.0",
+    "@types/nodemailer": "^6.4.7",
     "next": "^12.3.4",
+    "nodemailer": "^6.9.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.8",
