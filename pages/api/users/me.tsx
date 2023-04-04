@@ -14,24 +14,16 @@ async function handler(
     req: NextApiRequest,
     res: NextApiResponse<ResponseType>
 ) {
-    console.log(req.session);
-    const { token } = req.body;
-    const exists = await clients.token.findUnique({
-        //prisma
-        where: {
-            payload: token,
-        },
-        include: { user: true }, //dosen't neeed now
+    console.log(req.session.user);
+    const profile = await clients.user.findUnique({
+        where: { id: req.session.user?.id },
     });
-    if (!exists) return res.status(404).end();
-    req.session.user = {
-        id: exists.userId,
-    };
-    await req.session.save();
-    console.log(exists);
-    res.status(200).end();
+    res.json({
+        ok: true,
+        profile,
+    });
 }
-export default withIronSessionApiRoute(withHandler("POST", handler), {
+export default withIronSessionApiRoute(withHandler("GET", handler), {
     cookieName: "carrotsession",
     password: "fkdjiwkfjisldkkflfijkd15321535132d1fd1w35e1f",
 });
