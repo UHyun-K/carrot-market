@@ -29,16 +29,16 @@ async function handler(
         },
     });
     if (phone) {
-        const message = await twiloClient.messages.create({
+        /*     const message = await twiloClient.messages.create({
             messagingServiceSid: process.env.MESSAGING_SERVICE_SID,
             to: process.env.MY_PHONE!,
             body: `your login token is ${payload}`,
         });
-        console.log(message);
+        console.log(message); */
     }
 
     if (email) {
-        const mailOptions = {
+        /*     const mailOptions = {
             from: process.env.MAIL_ID,
             to: email,
             subject: " Carrot-Market Authentication Email",
@@ -54,10 +54,10 @@ async function handler(
                     console.log(responses);
                     return null;
                 }
-            }
+            } 
         );
         smtpTransport.close();
-        console.log(result);
+        console.log(result);*/
     }
     return res.json({
         ok: true,
