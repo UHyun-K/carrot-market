@@ -3,32 +3,32 @@ import { NextApiRequest, NextApiResponse } from "next";
 import clients from "@libs/server/clients";
 import withHandler, { ResponseType } from "@libs/server/witHandler";
 
-declare module "iron-session" {
+/* declare module "iron-session" {
     interface IronSessionData {
         user?: {
             id: number;
         };
     }
-}
+} */
 async function handler(
     req: NextApiRequest,
     res: NextApiResponse<ResponseType>
 ) {
-    console.log(req.session);
     const { token } = req.body;
     const exists = await clients.token.findUnique({
         //prisma
         where: {
             payload: token,
         },
-        include: { user: true }, //dosen't neeed now
+        /*    include: { user: true }, */ //dosen't neeed now
     });
     if (!exists) return res.status(404).end();
-    req.session.user = {
+    /*     req.session.user = {
         id: exists.userId,
     };
-    await req.session.save();
-    console.log(exists);
+    await req.session.save(); */
+    console.log(req.session);
+    console.log(token);
     res.status(200).end();
 }
 export default withIronSessionApiRoute(withHandler("POST", handler), {
