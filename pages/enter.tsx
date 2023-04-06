@@ -1,10 +1,11 @@
 import type { NextPage } from "next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Button from "@components/button";
 import Input from "@components/input";
 import useMutation from "@libs/clients/useMutation";
 import { cls } from "@libs/clients/utils";
+import { useRouter } from "next/router";
 
 interface EnterForm {
     email?: string;
@@ -43,6 +44,12 @@ const Enter: NextPage = () => {
         if (tokenLoading) return; //???mutation이 전송되었다는 뜻 인데 return 하는 이유는 뭘까
         confirmToken(validForm); //confirmToken : mutation 함수!  validForm을 인자로 넣어서 실행하라는 뜻 e.g1234
     };
+    const router = useRouter();
+    useEffect(() => {
+        if (tokenData?.ok) {
+            router.push("/");
+        }
+    }, [tokenData]);
     return (
         <div className="mt-16 px-4">
             <h3 className="text-3xl font-bold text-center">Enter to Carrot</h3>
